@@ -1,0 +1,284 @@
+INSERT INTO Reperibilita(Giorno)
+VALUES  ('Lunedi'),
+		('Martedi'),
+		('Mercoledi'),
+		('Giovedi'),
+		('Venerdi'),
+		('Sabato'),
+		('Domenica');
+
+INSERT INTO Tipologia (Tipo)
+VALUES ('Nuoto'),
+       ('Acquagym'),
+       ('Pilates'),
+       ('Yoga'),
+       ('Fitness'),
+       ('Idrobike'),
+       ('Aqua Zumba'),
+       ('Nuoto sincronizzato'),
+       ('Arti marziali'),
+       ('Stretching');
+
+-- Popolamento della tabella "Istruttore"
+INSERT INTO Istruttore (NumeroBadge, Nome, Cognome, DataDiNascita)
+VALUES
+  (1,'Marco', 'Rossi', '1980-01-01'),
+  (2,'Laura', 'Bossi', '1985-02-02'),
+  (3,'Francis', 'Verdi', '1990-03-03'),
+  (4,'Giulia', 'Rossini', '1995-04-04'),
+  (5,'Simone', 'Galli', '1982-05-05'),
+  (6,'Giovanni', 'Rossi', '1982-06-05'),
+  (7,'Alfonso', 'Sonni', '1983-06-09');
+
+INSERT INTO Responsabile (CF, Nome, Cognome, DataDiNascita)
+VALUES ('RSSMRA90A01H501W', 'Mario', 'Rossi', '1990-01-01'),
+       ('BNCGLI92E50E904E', 'Giulia', 'Bianchi', '1992-05-10'),
+       ('VRDLCU88T15C933C', 'Luca', 'Verdi', '1988-12-15'),
+       ('RZZLRA95L60F839E', 'Laura', 'Rizzo', '1995-07-20'),
+       ('SPSMRC93C25B963K', 'Marco', 'Esposito', '1993-03-25'),
+       ('CNTFNC91S45D286L', 'Francesca', 'Conti', '1991-11-05'),
+       ('GLLLSN94P12B212I', 'Alessandro', 'Galli', '1994-09-12'),
+       ('RMNSRA96B58I608D', 'Sara', 'Romano', '1996-02-18'),
+       ('FRRDVD96M28E904Y', 'Davide', 'Ferrari', '1989-08-28'),
+       ('RSSVNT97H48G288W', 'Valentina', 'Russo', '1997-06-08');
+
+
+INSERT INTO Piscina (Nome, Via, n_civ, nVasche, Apertura, Chiusura, CFResponsabile)
+VALUES ('Piscina Olimpia', 'Via Roma', 10, 2, '2023-01-01', '2023-12-31', 'RSSMRA90A01H501W'),
+       ('Piscina AcquaVita', 'Via Verdi', 15, 3, '2023-02-01', '2023-12-31', 'BNCGLI92E50E904E'),
+       ('Piscina Relax', 'Via Napoli', 20, 1, '2023-03-01', '2023-12-31', 'VRDLCU88T15C933C'),
+       ('Piscina Sportiva', 'Via Milano', 25, 2, '2023-04-01', '2023-12-31', 'RZZLRA95L60F839E'),
+       ('Piscina Blu', 'Via Firenze', 30, 2, '2023-05-01', '2023-12-31', 'SPSMRC93C25B963K'),
+       ('Piscina Splash', 'Via Venezia', 35, 3, '2023-06-01', '2023-12-31', 'CNTFNC91S45D286L'),
+       ('Piscina Aquarius', 'Via Bologna', 40, 2, '2023-07-01', '2023-12-31', 'GLLLSN94P12B212I'),
+       ('Piscina Serenity', 'Via Padova', 45, 1, '2023-08-01', '2023-12-31', 'RMNSRA96B58I608D'),
+       ('Piscina Fitness', 'Via Torino', 50, 2, '2023-09-01', '2023-12-31', 'FRRDVD96M28E904Y'),
+       ('Piscina AquaGym', 'Via Genova', 55, 3, '2023-10-01', '2023-12-31', 'RSSVNT97H48G288W');
+
+
+INSERT INTO Vasca (ID, Tipo, NomePiscina, NumeroCorsie, InizioFruizione, FineFruizione)
+VALUES (1, 'Nuoto', 'Piscina Olimpia', 4, '2023-01-01', '2023-12-31'),
+       (2, 'Acquagym', 'Piscina Olimpia', 2, '2023-01-01', '2023-12-31'),
+       (1, 'Nuoto sincronizzato', 'Piscina AcquaVita', 3, '2023-02-01', '2023-12-31'),
+       (2, 'Fitness', 'Piscina AcquaVita', 4, '2023-02-01', '2023-12-31'),
+       (1, 'Yoga', 'Piscina Relax', 2, '2023-03-01', '2023-12-31'),
+       (2, 'Pilates', 'Piscina Relax', 3, '2023-03-01', '2023-12-31'),
+       (1, 'Acquagym', 'Piscina Sportiva', 2, '2023-04-01', '2023-12-31'),
+       (2, 'Idrobike', 'Piscina Sportiva', 3, '2023-04-01', '2023-12-31'),
+       (1, 'Nuoto', 'Piscina Blu', 4, '2023-05-01', '2023-12-31'),
+       (2, 'Aqua Zumba', 'Piscina Blu', 2, '2023-05-01', '2023-12-31');
+
+
+INSERT INTO Gestione (CFResponsabile, NomePiscina, Giorno)
+VALUES ('RSSMRA90A01H501W', 'Piscina Olimpia', 'Lunedi'),
+       ('BNCGLI92E50E904E', 'Piscina AcquaVita', 'Mercoledi'),
+       ('BNCGLI92E50E904E', 'Piscina AcquaVita', 'Giovedi'),
+       ('VRDLCU88T15C933C', 'Piscina Relax', 'Martedi'),
+       ('RZZLRA95L60F839E', 'Piscina Sportiva', 'Sabato'),
+       ('SPSMRC93C25B963K', 'Piscina Blu', 'Giovedi'),
+       ('FRRDVD96M28E904Y', 'Piscina Splash', 'Venerdi'),
+       ('FRRDVD96M28E904Y', 'Piscina Splash', 'Martedi'),
+       ('RMNSRA96B58I608D', 'Piscina Aquarius', 'Lunedi'),
+       ('GLLLSN94P12B212I', 'Piscina Serenity', 'Mercoledi'),
+       ('CNTFNC91S45D286L', 'Piscina Fitness', 'Venerdi'),
+       ('RSSVNT97H48G288W', 'Piscina AquaGym', 'Martedi');
+
+
+INSERT INTO Corso (NomeCorso, Tipologia, Livello)
+VALUES ('Nuoto principianti', 'Nuoto', 1),
+       ('Acquagym base','Acquagym', 1),
+       ('Nuoto sincronizzato avanzato','Nuoto sincronizzato', 3),
+       ('Fitness total body','Fitness', 2),
+       ('Yoga per il benessere','Yoga', 1),
+       ('Pilates tonificante','Pilates', 2),
+       ('Acquagym avanzato', 'Acquagym', 3),
+       ('Idrobike dimagrante', 'Idrobike', 2),
+       ('Nuoto libero', 'Nuoto', 2),
+       ('Aqua Zumba divertente', 'Aqua Zumba', 1);
+
+-- Popolamento della tabella "EdizioneCorso"
+INSERT INTO EdizioneCorso (CodiceCorso,  NumeroBadgeIstruttore, NomeCorso, LivelloCorso, NumeroMinPartecipanti, NumeroMaxPartecipanti, NumeroLezioni, Costo)
+VALUES
+  (1,1, 'Nuoto principianti',1, 1, 15, 10, 45),
+  (2,3, 'Nuoto libero',2, 1, 20, 8, 42),
+  (3,2, 'Pilates tonificante',2, 1, 18, 12, 40);
+
+INSERT INTO Iscritto (NumeroTessera, CodiceEdizioneCorso, Nome, Cognome, DataDiNascita, Genitore)
+VALUES ('1234567890', 1, 'Alessia', 'Esposito', '1990-01-01', NULL),
+       ('2345678901', 2, 'Giovanni', 'Russo', '1985-02-02', NULL),
+       ('3456789012', 3, 'Francesca', 'Conti', '1995-03-03', NULL),
+       ('4567890123', 3, 'Marco', 'Romano', '1998-04-04', NULL),
+       ('5678901234', 2, 'Sara', 'Ferrari', '1992-05-05', NULL),
+       ('6789012345', 2, 'Roberto', 'Galli', '1988-06-06', NULL),
+       ('7890123456', 1, 'Chiara', 'Rossi', '1991-07-07', NULL),
+       ('8901234567', 3, 'Antonio', 'Bianchi', '2009-08-08', 'Massimo Verstappio'),
+       ('9012345678', 2, 'Simone', 'Verdi', '1989-09-09', NULL),
+       ('1284567490', 1, 'Alessio', 'Giancarli', '1990-03-01', NULL),
+       ('1274567890', 2, 'Carlo', 'Sanzio', '1990-06-02', NULL),
+       ('1294562890', 3, 'Massimo', 'Posei', '1994-01-01', NULL),
+       ('0123456789', 1, 'Giulia', 'Rizzo', '1997-10-10', NULL);
+
+
+-- Popolamento della tabella "Medico"
+INSERT INTO Medico (CodiceRegionaleASL, Cognome, Nome, DataDiNascita)
+VALUES
+  ('01234', 'Rossi', 'Mario','1975-10-02'),
+  ('12345', 'Bianchi', 'Laura','1972-11-05'),
+  ('23456', 'Verdi', 'Francesco','1965-09-22'),
+  ('34567', 'Russo', 'Giulia','1958-08-17'),
+  ('45678', 'Galli', 'Simone','1969-06-19');
+
+INSERT INTO CertificatoMedico (NumeroTessera, DataRilascio, CodiceMedico, DataScadenza)
+VALUES
+  ('2345678901','2020-11-23', '01234','2022-11-23'),
+  ('3456789012','2022-01-17', '01234','2023-10-25'),
+  ('4567890123','2020-12-14', '01234','2023-03-27'),
+  ('1234567890','2021-04-12', '45678','2023-03-12'),
+  ('5678901234','2018-05-05', '23456','2019-04-14'),
+  ('6789012345','2019-09-15', '34567','2020-02-17'),
+  ('8901234567','2022-04-09', '34567','2024-05-19'),
+  ('7890123456','2019-02-05', '45678','2021-07-20'),
+  ('1284567490','2018-12-07', '01234','2021-12-26'),
+  ('1274567890','2015-07-08', '34567','2017-09-22'),
+  ('0123456789','2014-04-12', '34567','2017-09-22'),
+  ('1294562890','2014-01-09', '34567','2017-09-22'),
+  ('9012345678','2016-10-16', '01234','2017-09-22');
+
+
+
+
+
+-- Popolamento della tabella "QualificheIstruttore"
+INSERT INTO Qualifica(Nome)
+VALUES
+  ('Nuoto'),
+  ('Fitness'),
+  ('Pilates');
+
+-- Popolamento della tabella "Contratto"
+INSERT INTO Contratto (Inizio, BadgeIstruttore, Fine, NomePiscina, Tipo, Durata, Ferie)
+VALUES
+  ('2023-01-01',1, '2023-12-31', 'Piscina Olimpia', 'Determinato', 12,NULL),
+  ('2023-01-01', 2, NULL, 'Piscina Relax', 'Indeterminato', NULL, 15),
+  ('2023-01-01', 3, '2023-12-31','Piscina Blu', 'Determinato', 12, NULL),
+  ('2023-01-01', 4, NULL, 'Piscina Serenity', 'Indeterminato', NULL, 18),
+  ('2023-01-01', 5, '2023-12-31', 'Piscina Splash','Determinato', 12, NULL),
+  ('2023-01-01', 6, '2023-06-01', 'Piscina Splash','Determinato', 6, NULL),
+  ('2023-03-01', 7, '2023-06-01', 'Piscina Splash','Determinato',3, NULL);
+
+INSERT INTO Svolgimento (CodiceCorso, IDVasca, NomePiscina, OraInizio, OraFine, NumCorsia)
+VALUES
+  (1, 1, 'Piscina Olimpia', '10:00:00', '11:00:00', 1),
+  (2, 2, 'Piscina Olimpia', '14:30:00', '15:30:00', 2),
+  (2, 1, 'Piscina Sportiva', '09:00:00', '10:00:00', 2),
+  (2, 2, 'Piscina Relax', '16:00:00', '17:00:00', 2),
+  (3, 1, 'Piscina Blu', '11:30:00', '12:30:00', 1);
+
+
+
+
+INSERT INTO Sostituzione (BadgeSostituto, BadgeTitolare, Inizio, Fine)
+VALUES
+  (6, 5, '2023-05-01', '2023-06-01'),
+  (7, 5, '2023-03-02', '2023-04-22'),
+  (5, 6, '2023-02-06', '2023-03-01'),
+  (7, 6, '2023-03-09', '2023-04-15');
+
+-- Popolamento della tabella "Possiede"
+INSERT INTO Possiede (Qualifica, BadgeIstruttore)
+VALUES
+  ('Nuoto', 1),
+  ('Fitness', 2),
+  ('Pilates', 3),
+  ('Nuoto', 4),
+  ('Fitness', 4);
+
+INSERT INTO Offre (NomePiscina, LivelloCorso, NomeCorso)
+VALUES
+  ('Piscina Olimpia', 1, 'Nuoto principianti'),
+  ('Piscina Olimpia', 1 , 'Acquagym base'),
+  ('Piscina Olimpia', 3, 'Acquagym avanzato'),
+  ('Piscina Olimpia', 2, 'Nuoto libero'),
+  ('Piscina AcquaVita', 1, 'Nuoto principianti'),
+  ('Piscina AcquaVita', 1, 'Acquagym base'),
+  ('Piscina AcquaVita', 2,  'Nuoto libero'),
+  ('Piscina Relax', 1,  'Nuoto principianti'),
+  ('Piscina Relax', 2, 'Nuoto libero'),
+  ('Piscina Sportiva', 1, 'Nuoto principianti'),
+  ('Piscina Blu', 1,  'Nuoto principianti'),
+  ('Piscina Blu', 1, 'Acquagym base');
+
+INSERT INTO Telefono (Numero, TesseraIscritto, BadgeIstruttore, NomePiscina, CFResponsabile, CodiceMedico)
+--iscritti
+VALUES
+       ('9012345678','1234567890' , NULL, NULL, NULL, NULL),
+       ('1234567890','2345678901' , NULL, NULL, NULL, NULL),
+       ('5556789012','3456789012' , NULL, NULL, NULL, NULL),
+       ('8901234567','4567890123' , NULL, NULL, NULL, NULL),
+       ('2468135790','5678901234' , NULL, NULL, NULL, NULL),
+       ('3692581470','6789012345' , NULL, NULL, NULL, NULL),
+       ('8024751369','7890123456' , NULL, NULL, NULL, NULL),
+       ('6147258039','8901234567' , NULL, NULL, NULL, NULL),
+       ('9345782061','9012345678' , NULL, NULL, NULL, NULL),
+       ('1270534869','1284567490' , NULL, NULL, NULL, NULL),
+       ('4567890123','1274567890' , NULL, NULL, NULL, NULL),
+       ('9870123456','1294562890' , NULL, NULL, NULL, NULL),
+       ('1029384756','0123456789' , NULL, NULL, NULL, NULL),
+--istruttori
+       ('5123987654', NULL, '1', NULL, NULL, NULL),
+       ('9038721562', NULL, '2', NULL, NULL, NULL),
+       ('4269518370', NULL, '3', NULL, NULL, NULL),
+       ('6392850147', NULL, '4', NULL, NULL, NULL),
+       ('8746209351', NULL, '5', NULL, NULL, NULL),
+       ('2057138496', NULL, '6', NULL, NULL, NULL),
+       ('7382465019', NULL, '7', NULL, NULL, NULL),
+--medico
+       ('1802469573', NULL, NULL, NULL, NULL,'01234'),
+       ('6945128370', NULL, NULL, NULL, NULL,'12345'),
+       ('3256784109', NULL, NULL, NULL, NULL,'23456'),
+       ('9876543210', NULL, NULL, NULL, NULL,'34567'),
+       ('7521093846', NULL, NULL, NULL, NULL,'45678'),
+--responsabile
+       ('9457210368', NULL, NULL, NULL, 'RSSMRA90A01H501W', NULL),
+       ('6948271035', NULL, NULL, NULL, 'BNCGLI92E50E904E', NULL),
+       ('8194562307', NULL, NULL, NULL, 'VRDLCU88T15C933C', NULL),
+       ('5032179486', NULL, NULL, NULL, 'RZZLRA95L60F839E', NULL),
+       ('9268745301', NULL, NULL, NULL, 'SPSMRC93C25B963K', NULL),
+       ('7350128946', NULL, NULL, NULL, 'CNTFNC91S45D286L', NULL),
+       ('2103956784', NULL, NULL, NULL, 'GLLLSN94P12B212I', NULL),
+       ('4837165920', NULL, NULL, NULL, 'RMNSRA96B58I608D', NULL),
+       ('6578402913', NULL, NULL, NULL, 'FRRDVD96M28E904Y', NULL),
+       ('3745092168', NULL, NULL, NULL, 'RSSVNT97H48G288W', NULL),
+
+
+--piscina
+       ('3142967085', NULL, NULL, 'Piscina Olimpia', NULL, NULL),
+       ('7290841536', NULL, NULL, 'Piscina AcquaVita', NULL, NULL),
+       ('6452970318', NULL, NULL, 'Piscina Relax', NULL, NULL),
+       ('8715364029', NULL, NULL, 'Piscina Sportiva', NULL, NULL),
+       ('2058193476', NULL, NULL, 'Piscina Blu', NULL, NULL),
+       ('9362475801', NULL, NULL, 'Piscina Splash', NULL, NULL),
+       ('5081726394', NULL, NULL, 'Piscina Aquarius', NULL, NULL),
+       ('6274590831', NULL, NULL, 'Piscina Serenity', NULL, NULL),
+       ('3095872164', NULL, NULL, 'Piscina Fitness', NULL, NULL),
+       ('4153627908', NULL, NULL, 'Piscina AquaGym', NULL, NULL);
+
+
+–inserimento in Tesseramento
+INSERT INTO Tesseramento (Numerotessera, inizio, NomePiscina, fine)
+VALUES
+	('1234567890', '2022-10-20', 'Piscina Splash', '2023-10-20'),
+	('2345678901', '2022-12-20', 'Piscina AcquaVita', '2023-12-20'),
+	('3456789012', '2020-12-15', 'Piscina AcquaVita', '2021-12-15'),
+	('4567890123', '2019-12-12', 'Piscina AcquaVita', '2019-12-12'),
+	('4567890123', '2015-10-13', 'Piscina Relax', '2016-10-13'),
+	('5678901234', '2017-11-09', 'Piscina Fitness', '2018-11-09'),
+	('6789012345', '2016-11-09', 'Piscina AquaGym', '2017-11-09'),
+	('7890123456', '2016-11-14', 'Piscina Serenity', '2017-11-14'),
+	('8901234567', '2019-11-09', 'Piscina Serenity', '2020-11-09'),
+	('9012345678', '2019-05-09', 'Piscina Sportiva', '2020-05-09'),
+	('1284567490', '2019-05-09', 'Piscina Blu', '2020-05-09'),
+	('1274567890', '2014-05-09', 'Piscina Blu', '2015-05-09'),
+	('1274567890', '2016-05-12', 'Piscina Blu', '2017-05-12'),
+	('1294562890', '2012-05-09', 'Piscina Blu', '2013-05-09'),
+	('0123456789', '2018-06-09', 'Piscina Blu', '2018-06-09');

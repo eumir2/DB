@@ -1,0 +1,202 @@
+CODICE SQL PER LA CREAZIONE DELLE TABELLE
+
+BEGIN;
+
+CREATE TABLE Responsabile (
+  CF CHAR(16) PRIMARY KEY,
+  Nome VARCHAR(50) NOT NULL,
+  Cognome VARCHAR(50) NOT NULL,
+  DataDiNascita DATE NOT NULL
+);
+
+
+
+CREATE TABLE Piscina (
+  Nome VARCHAR(100) NOT NULL,
+  CFResponsabile CHAR(16) NOT NULL,
+  via VARCHAR(100) NOT NULL,
+  n_civ INT NOT NULL,
+  Apertura DATE NOT NULL,
+  Chiusura DATE NOT NULL CHECK(Apertura < Chiusura),
+  nVasche INT NOT NULL,
+  PRIMARY KEY (Nome),
+  FOREIGN KEY (CFResponsabile) REFERENCES Responsabile(CF)
+);
+
+CREATE TABLE Tipologia (
+  Tipo VARCHAR(50) PRIMARY KEY
+);
+
+CREATE TABLE Vasca (
+  ID INT,
+  Tipo VARCHAR(50) NOT NULL,
+  NomePiscina VARCHAR(100) NOT NULL,
+  numeroCorsie INT NOT NULL,
+  InizioFruizione DATE NOT NULL,
+  FineFruizione DATE NOT NULL CHECK(InizioFruizione < FineFruizione),
+  PRIMARY KEY(ID, NomePiscina),
+  FOREIGN KEY (NomePiscina) REFERENCES Piscina(Nome),
+  FOREIGN KEY(Tipo) REFERENCES Tipologia(Tipo)
+);
+
+CREATE TABLE Corso (
+  NomeCorso VARCHAR(100) NOT NULL,
+  Tipologia VARCHAR(50) NOT NULL,
+  Livello INT NOT NULL,
+  PRIMARY KEY (NomeCorso, Livello),
+  FOREIGN KEY (Tipologia) REFERENCES Tipologia (Tipo)
+);
+
+CREATE TABLE Offre (
+  NomeCorso VARCHAR(100) NOT NULL,
+  LivelloCorso INT NOT NULL,
+  NomePiscina VARCHAR(100) NOT NULL,
+  PRIMARY KEY (NomeCorso, LivelloCorso, NomePiscina),
+  FOREIGN KEY (NomeCorso, LivelloCorso ) REFERENCES Corso(NomeCorso, Livello),
+  FOREIGN KEY (NomePiscina) REFERENCES Piscina(Nome)
+);
+
+CREATE TABLE Istruttore (
+  NumeroBadge INTEGER PRIMARY KEY,
+  Nome VARCHAR(50) NOT NULL,
+  Cognome VARCHAR(50) NOT NULL,
+  DataDiNascita DATE NOT NULL
+);
+
+CREATE TABLE EdizioneCorso (
+  CodiceCorso INTEGER NOT NULL,
+  NumeroBadgeIstruttore INTEGER NOT NULL,
+  NomeCorso VARCHAR(100) NOT NULL,
+  LivelloCorso INT NOT NULL,
+  NumeroMinPartecipanti INTEGER NOT NULL,
+  NumeroMaxPartecipanti INTEGER NOT NULL CHECK(NumeroMinPartecipanti < NumeroMaxPartecipanti),
+  NumeroLezioni INTEGER NOT NULL,
+  Costo INTEGER NOT NULL,
+  PRIMARY KEY (CodiceCorso),
+  FOREIGN KEY (NumeroBadgeIstruttore) REFERENCES Istruttore(NumeroBadge),
+  FOREIGN KEY (NomeCorso, LivelloCorso) REFERENCES Corso(NomeCorso, Livello)
+);
+
+CREATE TABLE Svolgimento(
+  CodiceCorso INTEGER NOT NULL,
+  IDVasca INTEGER NOT NULL,
+  NomePiscina VARCHAR(100) NOT NULL,
+  OraInizio TIME NOT NULL,
+  OraFine TIME NOT NULL,
+  NumCorsia INTEGER NOT NULL,
+  PRIMARY KEY (CodiceCorso, IDVasca, NomePiscina),
+  FOREIGN KEY (CodiceCorso) REFERENCES EdizioneCorso(CodiceCorso),
+  FOREIGN KEY (IDVasca, NomePiscina) REFERENCES Vasca(ID, NomePiscina)
+);
+
+CREATE TABLE Contratto (
+  BadgeIstruttore INTEGER NOT NULL,
+  NomePiscina VARCHAR(255) NOT NULL,
+  Inizio DATE NOT NULL,
+  Fine DATE,
+  Durata INTEGER,
+  Tipo VARCHAR(50) NOT NULL CHECK(Tipo = 'Determinato' OR Tipo = 'Indeterminato'),
+  Ferie INTEGER,
+  PRIMARY KEY (BadgeIstruttore, Inizio, NomePiscina),
+  FOREIGN KEY (BadgeIstruttore) REFERENCES Istruttore(NumeroBadge),
+  FOREIGN KEY (NomePiscina) REFERENCES Piscina(Nome)
+);
+
+CREATE TABLE Qualifica (
+  Nome VARCHAR(100) PRIMARY KEY
+);
+
+CREATE TABLE Medico (
+  CodiceRegionaleASL CHAR(5) PRIMARY KEY,
+  Nome VARCHAR(100) NOT NULL,
+  Cognome VARCHAR(100) NOT NULL,
+  DataDiNascita DATE NOT NULL
+);
+
+CREATE TABLE Iscritto (
+  NumeroTessera CHAR(10) PRIMARY KEY,
+  Nome VARCHAR(100) NOT NULL,
+  Cognome VARCHAR(100) NOT NULL,
+  DataDiNascita DATE NOT NULL,
+  Genitore VARCHAR(100),
+  CodiceEdizioneCorso INTEGER NOT NULL,
+  FOREIGN KEY (CodiceEdizioneCorso) REFERENCES EdizioneCorso(CodiceCorso)
+);
+
+CREATE TABLE Iscrizione(
+   NumeroTessera CHAR(10) NOT NULL,
+   CodiceEdizioneCorso INTEGER NOT NULL,
+   PRIMARY KEY(NumeroTessera, CodiceEdizioneCorso),
+   FOREIGN KEY(NumeroTessera) REFERENCES Iscritto(Numerotessera),
+   FOREIGN KEY (CodiceEdizioneCorso) REFERENCES EdizioneCorso(CodiceCorso)
+);
+
+
+CREATE TABLE CertificatoMedico (
+  NumeroTessera CHAR(10) NOT NULL,
+  DataRilascio DATE NOT NULL,
+  CodiceMedico CHAR(5) NOT NULL,
+  dataScadenza DATE NOT NULL CHECK(dataRilascio < dataScadenza),
+  PRIMARY KEY(NumeroTessera, CodiceMedico, dataRilascio),
+  FOREIGN KEY (CodiceMedico) REFERENCES Medico(CodiceRegionaleASL),
+  FOREIGN KEY (NumeroTessera) REFERENCES Iscritto(NumeroTessera)
+);
+
+CREATE TABLE Reperibilita (
+  Giorno VARCHAR(20) PRIMARY KEY
+);
+
+
+CREATE TABLE Gestione (
+  CFResponsabile CHAR(16) NOT NULL,
+  NomePiscina VARCHAR(100) NOT NULL,
+  Giorno VARCHAR(20) NOT NULL,
+  PRIMARY KEY (CFResponsabile, NomePiscina, Giorno),
+  FOREIGN KEY (CFResponsabile) REFERENCES Responsabile(CF),
+  FOREIGN KEY (NomePiscina) REFERENCES Piscina(Nome),
+  FOREIGN KEY (Giorno) REFERENCES Reperibilita(Giorno)
+);
+
+CREATE TABLE Possiede (
+  BadgeIstruttore INTEGER NOT NULL,
+  Qualifica VARCHAR(100) NOT NULL,
+  PRIMARY KEY(BadgeIstruttore, Qualifica),
+  FOREIGN KEY (BadgeIstruttore) REFERENCES Istruttore(NumeroBadge),
+  FOREIGN KEY (Qualifica) REFERENCES Qualifica(Nome)
+);
+
+CREATE TABLE Sostituzione (
+  BadgeSostituto INTEGER NOT NULL,
+  BadgeTitolare INTEGER NOT NULL,
+  Inizio DATE NOT NULL,
+  Fine DATE NOT NULL,
+  PRIMARY KEY(BadgeSostituto, BadgeTitolare, Inizio),
+  FOREIGN KEY (BadgeSostituto) REFERENCES Istruttore(NumeroBadge),
+  FOREIGN KEY (BadgeTitolare) REFERENCES Istruttore(NumeroBadge)
+);
+
+CREATE TABLE Tesseramento (
+  NumeroTessera CHAR(10) NOT NULL,
+  Inizio DATE NOT NULL,
+  NomePiscina VARCHAR(100),
+  Fine DATE,
+  PRIMARY KEY(NumeroTessera, Inizio, NomePiscina),
+  FOREIGN KEY (NomePiscina) REFERENCES Piscina(Nome),
+  FOREIGN KEY(NumeroTessera) REFERENCES Iscritto(NumeroTessera)
+);
+
+CREATE TABLE Telefono (
+  Numero VARCHAR(10) PRIMARY KEY,
+  TesseraIscritto CHAR(10),
+  BadgeIstruttore INTEGER,
+  NomePiscina VARCHAR(100),
+  CFResponsabile CHAR(16),
+  CodiceMedico VARCHAR(255),
+  FOREIGN KEY (TesseraIscritto) REFERENCES Iscritto(NumeroTessera),
+  FOREIGN KEY (BadgeIstruttore) REFERENCES Istruttore(NumeroBadge),
+  FOREIGN KEY (NomePiscina) REFERENCES Piscina(Nome),
+  FOREIGN KEY (CodiceMedico) REFERENCES Medico(CodiceRegionaleASL),
+  FOREIGN KEY(CFresponsabile) REFERENCES Responsabile(CF)
+);
+
+COMMIT;
